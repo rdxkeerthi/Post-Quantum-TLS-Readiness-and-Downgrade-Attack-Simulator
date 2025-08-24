@@ -36,3 +36,29 @@ flowchart LR
     C1 --> R1 --> R2
 
 ```
+
+
+# Repository Layout
+```bash
+pq-tls-simulator/
+├─ docker-compose.yml
+├─ README.md
+├─ .env.example
+│
+├─ server/
+│ ├─ Dockerfile
+│ ├─ nginx.conf
+│ ├─ gen_pq_certs.sh
+│ └─ entrypoint.sh
+│
+├─ client/
+│ ├─ Dockerfile
+│ ├─ run_test.sh
+│ └─ entrypoint.sh
+│
+└─ mitm/
+├─ Dockerfile
+├─ proxy.py
+├─ config.yml
+└─ requirements.txt
+```
