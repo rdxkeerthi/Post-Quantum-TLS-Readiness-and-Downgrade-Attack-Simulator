@@ -1,0 +1,12 @@
+[project]
+name = "pq-tls-simulator"
+version = "0.1.0"
+description = "Post-Quantum TLS Readiness & Downgrade Attack Simulator"
+authors = ["Your Name <you@example.com>"]
+requires-python = ">=3.8"
+dependencies = [
+    "click",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

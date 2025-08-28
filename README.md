@@ -1,9 +1,41 @@
-# Post-Quantum-TLS-Readiness-and-Downgrade-Attack-Simulator
-Post‑Quantum TLS Readiness and Downgrade Attack Simulator
+# Post-Quantum TLS Readiness & Downgrade Attack Simulator
 
+This project simulates TLS 1.3/1.4 handshakes with support for both classical and post-quantum (PQ) cryptography, hybrid ciphersuites, and demonstrates advanced downgrade attacks. It is intended for educational, research, and interoperability testing purposes.
 
+## Features (2025+)
+- Simulate TLS 1.3, TLS 1.4, and PQ/hybrid handshakes
+- Support for latest PQ algorithms (Kyber1024, Falcon-1024, Dilithium, hybrids)
+- Model advanced downgrade attacks (strip PQ, strip hybrid, fake PQ, force legacy, etc.)
+- Scenario-based simulation via JSON files
+- Extensible cryptography, handshake, and MITM logic
+- Simulate PQ certificates and certificate attacks
+- Enhanced client/server policy (require PQ, require hybrid, etc.)
+- Network simulation (latency, loss, reordering)
+- Detailed logging and analytics (JSON/CSV output)
+- Interoperability simulation (OpenSSL, BoringSSL, WolfSSL, etc.)
+- Web dashboard for visualization (coming soon)
 
-# Arch 
+## Usage
+
+```bash
+python -m pq_tls_sim.cli --scenario scenarios/default.json --attack strip_hybrid_only
+```
+
+## Project Structure
+- `pq_tls_sim/` - Main simulator code
+- `scenarios/` - Example scenario files
+- `tests/` - Test cases
+- `dashboard/` - Web dashboard (optional)
+
+## Requirements
+- Python 3.8+
+
+## License
+MIT
+
+---
+
+# Architecture & Deployment (Legacy/Infra)
 
 ```mermaid
 flowchart LR
@@ -34,11 +66,9 @@ flowchart LR
     C1 --> C2 --> M1 --> M2 --> S1
     S1 --> S2 --> S3 --> M1 --> C1
     C1 --> R1 --> R2
-
 ```
 
-
-# Repository Layout
+# Repository Layout (Legacy/Infra)
 ```bash
 pq-tls-simulator/
 ├─ docker-compose.yml
@@ -57,8 +87,8 @@ pq-tls-simulator/
 │ └─ entrypoint.sh
 │
 └─ mitm/
-├─ Dockerfile
-├─ proxy.py
-├─ config.yml
-└─ requirements.txt
+   ├─ Dockerfile
+   ├─ proxy.py
+   ├─ config.yml
+   └─ requirements.txt
 ```

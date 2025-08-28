@@ -1,0 +1,6 @@
+{
+  "name": "PQ Both",
+  "client": {"pq_supported": true},
+  "server": {"pq_supported": true},
+  "mitm": {"enabled": false}
+}
