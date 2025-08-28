@@ -30,6 +30,13 @@ def run_simulation(scenario_path, attack_name):
     client, server = load_policy(scen['client']), load_policy(scen['server'])
     sim = TLSSimulator(client, server)
     result = sim.run_handshake(attack=ATTACKS[attack_name])
+    # Write logs to file for dashboard and AI
+    with open("/data/handshake.log", "w") as logf:
+        logf.write(f"KEM: {result.selected_kem}, SIG: {result.selected_sig}\n")
+        logf.write("ALERTS:\n")
+        logf.write("\n".join(result.alerts) + "\n")
+        logf.write("TRANSCRIPT:\n")
+        logf.write(result.transcript + "\n")
     print("=== RESULT ===")
     print(f"KEM: {result.selected_kem}, SIG: {result.selected_sig}")
     print("=== ALERTS ===")

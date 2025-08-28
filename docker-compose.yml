@@ -1,0 +1,29 @@
+
+version: '3.8'
+services:
+  simulator:
+    build: .
+    container_name: pq-tls-simulator
+    volumes:
+      - handshake-data:/data
+    ports:
+      - "8000:8000"
+  dashboard:
+    build: ./dashboard
+    container_name: pq-tls-dashboard
+    volumes:
+      - handshake-data:/data
+    ports:
+      - "5000:5000"
+  ai_anomaly:
+    build:
+      context: ./ai_anomaly
+      dockerfile: Dockerfile
+    container_name: pq-tls-ai-anomaly
+    volumes:
+      - handshake-data:/data
+    command: ["python", "detect.py", "/data/handshake.log"]
+    depends_on:
+      - simulator
+volumes:
+  handshake-data:

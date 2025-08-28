@@ -1,11 +1,16 @@
+[tool.setuptools]
+packages = ["pq_tls_sim"]
 [project]
 name = "pq-tls-simulator"
 version = "0.1.0"
 description = "Post-Quantum TLS Readiness & Downgrade Attack Simulator"
-authors = ["Your Name <you@example.com>"]
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
 requires-python = ">=3.8"
 dependencies = [
     "click",
+    "flask",
 ]
 
 [tool.pytest.ini_options]
