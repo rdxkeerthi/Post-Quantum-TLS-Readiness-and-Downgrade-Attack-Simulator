@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Run Docker Compose up (detached)",
+			"command": "sudo docker compose up -d",
+			"group": "build"
+		}
+	]
+}

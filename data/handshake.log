@@ -1,0 +1,8 @@
+KEM: X25519, SIG: ecdsa_secp256r1_sha256
+ALERTS:
+Possible downgrade: PQ supported but classical negotiated.
+TRANSCRIPT:
+[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only

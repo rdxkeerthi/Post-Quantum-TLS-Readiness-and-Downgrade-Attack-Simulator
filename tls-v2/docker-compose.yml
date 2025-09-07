@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  server:
+    build: ./server
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./server:/app
+  client:
+    build: ./client
+    depends_on:
+      - server
+    volumes:
+      - ./client:/app
