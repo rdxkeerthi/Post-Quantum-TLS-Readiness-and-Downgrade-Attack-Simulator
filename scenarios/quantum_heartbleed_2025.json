@@ -1,0 +1,23 @@
+{
+    "name": "QUANTUM-2025-003",
+    "description": "Modern Quantum-aware HEARTBLEED - Tests for quantum-safe signature resistance",
+    "risk_level": "CRITICAL",
+    "client": {
+        "kem_offers": ["KYBER1024", "KYBER768", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "sphincs-plus", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true
+    },
+    "server": {
+        "kem_offers": ["KYBER1024", "x25519"],
+        "sig_offers": ["ecdsa_secp384r1_sha384"],
+        "require_pq": false,
+        "pq_allowed": true
+    },
+    "attack": {
+        "type": "strip_pq_sigs",
+        "success_conditions": ["!sig.startswith('dilithium') and !sig.startswith('falcon') and !sig.startswith('sphincs')"],
+        "mitigation": "require_pq_sig"
+    }
+}

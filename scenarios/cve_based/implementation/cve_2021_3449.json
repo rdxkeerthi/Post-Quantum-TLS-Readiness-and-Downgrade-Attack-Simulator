@@ -1,0 +1,37 @@
+{
+    "id": "CVE-2021-3449",
+    "name": "NULL Pointer Dereference",
+    "description": "NULL pointer dereference in signature_algorithms processing",
+    "attack_type": "null_deref",
+    "year": 2021,
+    "quantum_impact": "medium",
+    "cvss_score": 5.9,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

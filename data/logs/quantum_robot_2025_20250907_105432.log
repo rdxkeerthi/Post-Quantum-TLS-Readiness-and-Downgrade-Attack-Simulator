@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-09-07T10:54:32.882905",
+  "scenario": "quantum_robot_2025",
+  "attack": "strip_hybrid_only",
+  "handshake": {
+    "selected_kem": "none",
+    "selected_sig": "none",
+    "alerts": [
+      "Possible downgrade: PQ supported but classical negotiated.",
+      "Negotiation context mismatch."
+    ],
+    "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "rainbow-iii",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    }
+  }
+}

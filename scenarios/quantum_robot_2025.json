@@ -1,0 +1,24 @@
+{
+    "name": "QUANTUM-2025-004",
+    "description": "Modern Quantum-aware ROBOT - Tests for hybrid mode enforcement",
+    "risk_level": "HIGH",
+    "client": {
+        "kem_offers": ["KYBER1024", "KYBER768", "NTRU-HPS-4096", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "rainbow-iii", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true
+    },
+    "server": {
+        "kem_offers": ["KYBER1024", "KYBER768", "NTRU-HPS-4096", "x25519"],
+        "sig_offers": ["dilithium5", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "pq_allowed": true,
+        "require_hybrid": false
+    },
+    "attack": {
+        "type": "strip_hybrid_only",
+        "success_conditions": ["!require_hybrid"],
+        "mitigation": "enforce_hybrid_mode"
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "poodle_attack",
+  "description": "Simulate CVE-2014-3566 (POODLE): MITM forces TLS 1.0 and enables CBC padding oracle.",
+  "client": {
+    "kem_offers": [],
+    "sig_offers": [],
+    "ciphers": ["AES128-CBC", "AES256-CBC"],
+    "versions": ["TLS1.0", "TLS1.2"]
+  },
+  "server": {
+    "kem_offers": [],
+    "sig_offers": [],
+    "ciphers": ["AES128-CBC", "AES256-CBC"],
+    "versions": ["TLS1.0", "TLS1.2"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "force_version", "version": "TLS1.0" },
+      { "type": "enable_padding_oracle" }
+    ]
+  },
+  "expected": {
+    "detection": "cbc_padding_oracle",
+    "mitigation": "abort_handshake"
+  }
+}

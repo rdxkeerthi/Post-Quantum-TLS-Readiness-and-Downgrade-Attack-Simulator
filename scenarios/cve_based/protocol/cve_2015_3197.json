@@ -1,0 +1,37 @@
+{
+    "id": "CVE-2015-3197",
+    "name": "SSLv2 Ciphersuite Downgrade",
+    "description": "Server supporting SSLv2 allows client-initiated ciphersuite downgrade",
+    "attack_type": "force_weak_cipher",
+    "year": 2015,
+    "quantum_impact": "high",
+    "cvss_score": 6.8,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

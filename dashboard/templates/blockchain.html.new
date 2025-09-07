@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quantum Attack Simulation Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .risk-badge {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .risk-CRITICAL { background: #dc3545; color: white; }
+        .risk-HIGH { background: #fd7e14; color: white; }
+        .risk-MEDIUM { background: #ffc107; color: black; }
+        .risk-LOW { background: #28a745; color: white; }
+        pre { 
+            background: #f8f9fa; 
+            padding: 1rem; 
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .event-card {
+            margin-bottom: 1.5rem;
+            border-left-width: 5px !important;
+        }
+        .event-CRITICAL { border-left-color: #dc3545 !important; }
+        .event-HIGH { border-left-color: #fd7e14 !important; }
+        .event-MEDIUM { border-left-color: #ffc107 !important; }
+        .event-LOW { border-left-color: #28a745 !important; }
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-4 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Quantum Attack Simulation Events</h1>
+        <a href="/report" class="btn btn-outline-primary">Back to Report</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if stats %}
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ stats.total_events }}</h3>
+                    <p class="text-muted mb-0">Total Events</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ stats.high_risk }}</h3>
+                    <p class="text-muted mb-0">High/Critical Risk</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ stats.pq_ready }}</h3>
+                    <p class="text-muted mb-0">PQ Ready</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if events %}
+    <div class="row">
+        {% for event in events %}
+        <div class="col-md-6">
+            <div class="card event-card event-{{ event.risk_assessment.level }}">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ event.scenario_id }}</h5>
+                    <span class="risk-badge risk-{{ event.risk_assessment.level }}">
+                        {{ event.risk_assessment.level }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="bi bi-clock"></i> 
+                            {{ event.timestamp.split('T')[0] }} 
+                            {{ event.timestamp.split('T')[1].split('.')[0] }}
+                        </small>
+                    </div>
+                    
+                    <h6>Findings:</h6>
+                    <ul class="mb-3">
+                        <li>Quantum Vulnerable: 
+                            <span class="badge {% if event.result.quantum_vulnerability %}bg-danger{% else %}bg-success{% endif %}">
+                                {{ event.result.quantum_vulnerability|string }}
+                            </span>
+                        </li>
+                        <li>PQ Algorithms Used: 
+                            <span class="badge {% if event.result.pq_algorithms_used %}bg-success{% else %}bg-warning{% endif %}">
+                                {{ event.result.pq_algorithms_used|string }}
+                            </span>
+                        </li>
+                        <li>Mitigation Success: 
+                            <span class="badge {% if event.result.mitigation_success %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ event.result.mitigation_success|string }}
+                            </span>
+                        </li>
+                    </ul>
+
+                    {% if event.risk_assessment.recommendations %}
+                    <h6>Recommendations:</h6>
+                    <ul class="mb-3">
+                        {% for rec in event.risk_assessment.recommendations %}
+                        <li>{{ rec }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <h6>Simulation Output:</h6>
+                    <pre class="mb-0"><code>{{ event.result.transcript }}</code></pre>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">No Events Found</h4>
+        <p>No quantum simulation events have been recorded yet. Run some scenarios from the security report to generate events.</p>
+        <hr>
+        <p class="mb-0">
+            <a href="/report" class="btn btn-primary">Go to Security Report</a>
+        </p>
+    </div>
+    {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

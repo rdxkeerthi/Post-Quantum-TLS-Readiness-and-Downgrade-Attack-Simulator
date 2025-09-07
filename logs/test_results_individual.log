@@ -1,0 +1,1311 @@
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_default_pq_selected | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'X25519'], sigs=['hybrid_ecdsa_falcon1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=HYBRID_X25519_KYBER1024, sig=hybrid_ecdsa_falcon1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_mitm_downgrade_detected | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER768', 'X25519'], sigs=['dilithium3', 'ecdsa_secp256r1_sha256']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=dilithium3
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: PQ Signature
+------------------------------------------------------------
+Test: test_default_scenario | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_mitm_downgrade | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[!] detector: Possible downgrade: PQ supported but classical negotiated.
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_classical_only | PASS
+Transcript:
+[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_pq_only_success | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_hybrid_vs_classical | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024'], sigs=['hybrid_ecdsa_falcon1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------
+Test: test_force_tls12_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024', 'X25519'], sigs=['falcon-1024', 'ecdsa_secp256r1_sha256']
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_strip_hybrid_only_attack | PASS
+Transcript:
+[=] client: ClientHello kem=['HYBRID_X25519_KYBER1024', 'KYBER1024'], sigs=['hybrid_ecdsa_falcon1024', 'falcon-1024']
+[!] network: ClientHello modified by MITM
+[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024
+[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature
+------------------------------------------------------------
+Test: test_no_mutual_kem | PASS
+Transcript:
+[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']
+[x] server: No mutual KEM/SIG
+[!] detector: Negotiation context mismatch.
+[=] report: TLS Version: TLS1.3, PQ: Classical Only
+------------------------------------------------------------

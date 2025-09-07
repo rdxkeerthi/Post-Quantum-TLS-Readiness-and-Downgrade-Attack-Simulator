@@ -1,0 +1,37 @@
+{
+    "id": "CVE-2019-1547",
+    "name": "ECDSA Side Channel",
+    "description": "ECDSA sign can leak private keys through side channel",
+    "attack_type": "side_channel",
+    "year": 2019,
+    "quantum_impact": "high",
+    "cvss_score": 7.5,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "QUANTUM-2025-002",
+    "description": "Modern Quantum-aware POODLE - Tests for protocol version downgrade resistance",
+    "risk_level": "HIGH",
+    "client": {
+        "kem_offers": ["KYBER1024", "KYBER768", "KYBER512", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true
+    },
+    "server": {
+        "kem_offers": ["KYBER1024", "KYBER768", "KYBER512", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true
+    },
+    "attack": {
+        "type": "force_tls12",
+        "success_conditions": ["version == TLS1_2"],
+        "mitigation": "require_tls13"
+    }
+}

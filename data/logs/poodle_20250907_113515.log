@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-09-07T11:35:15.098158",
+  "scenario": "poodle",
+  "attack": "none",
+  "handshake": {
+    "selected_kem": "none",
+    "selected_sig": "none",
+    "alerts": [
+      "Negotiation context mismatch."
+    ],
+    "transcript": "[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    }
+  }
+}

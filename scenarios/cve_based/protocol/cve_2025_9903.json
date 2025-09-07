@@ -1,0 +1,37 @@
+{
+    "id": "CVE-2025-9903",
+    "name": "Hybrid KEM Downgrade",
+    "description": "Protocol downgrade in hybrid key establishment",
+    "attack_type": "hybrid_downgrade",
+    "year": 2025,
+    "quantum_impact": "critical",
+    "cvss_score": 8.9,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

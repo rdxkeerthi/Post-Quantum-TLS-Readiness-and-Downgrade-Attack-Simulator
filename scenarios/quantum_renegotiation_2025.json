@@ -1,0 +1,26 @@
+{
+    "name": "QUANTUM-2025-005",
+    "description": "Modern Quantum-aware Renegotiation - Tests for secure renegotiation with PQ algorithms",
+    "risk_level": "HIGH",
+    "client": {
+        "kem_offers": ["KYBER1024", "KYBER768", "Frodo1344", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "picnic-L5-FS", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true,
+        "allow_renegotiation": true
+    },
+    "server": {
+        "kem_offers": ["KYBER1024", "KYBER768", "Frodo1344", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "picnic-L5-FS", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true,
+        "pq_allowed": true,
+        "secure_renegotiation": true
+    },
+    "attack": {
+        "type": "none",
+        "success_conditions": [],
+        "mitigation": "enforce_secure_renegotiation"
+    }
+}

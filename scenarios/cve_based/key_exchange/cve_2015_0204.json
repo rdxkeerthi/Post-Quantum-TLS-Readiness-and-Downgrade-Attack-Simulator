@@ -1,0 +1,41 @@
+{
+    "id": "CVE-2015-0204",
+    "name": "FREAK Attack",
+    "description": "SSL/TLS vulnerability allowing forced use of weak RSA keys",
+    "attack_type": "force_weak_rsa",
+    "year": 2015,
+    "quantum_impact": "critical",
+    "cvss_score": 7.5,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "rainbow-iii",
+            "rainbow-iii",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "rainbow-iii",
+            "rainbow-iii",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

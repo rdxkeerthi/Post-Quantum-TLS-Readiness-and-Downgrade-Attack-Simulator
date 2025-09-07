@@ -1,0 +1,41 @@
+{
+    "id": "CVE-2025-9902",
+    "name": "CRYSTALS-Dilithium Implementation Flaw",
+    "description": "Side-channel attack against Dilithium implementation",
+    "attack_type": "dilithium_side_channel",
+    "year": 2025,
+    "quantum_impact": "high",
+    "cvss_score": 8.2,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "dilithium5",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "dilithium5",
+            "dilithium5",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    }
+}

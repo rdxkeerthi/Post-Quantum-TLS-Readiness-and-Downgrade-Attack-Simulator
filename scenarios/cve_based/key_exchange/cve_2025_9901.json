@@ -1,0 +1,42 @@
+{
+    "id": "CVE-2025-9901",
+    "name": "Quantum Rainbow Break",
+    "description": "Rainbow signature scheme cryptanalysis vulnerability",
+    "attack_type": "quantum_rainbow",
+    "year": 2025,
+    "quantum_impact": "critical",
+    "cvss_score": 9.1,
+    "client": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "rainbow-iii",
+            "rainbow-iii",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": [
+            "KYBER1024",
+            "KYBER768",
+            "x25519"
+        ],
+        "sig_offers": [
+            "rainbow-iii",
+            "rainbow-iii",
+            "dilithium5",
+            "falcon-1024",
+            "ecdsa_secp384r1_sha384"
+        ],
+        "require_pq": false,
+        "require_hybrid": true,
+        "pq_allowed": false
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "id": "CVE-2023-SIKE",
+    "name": "SIKE Post-Quantum Algorithm Break",
+    "description": "Complete break of SIKE (Supersingular Isogeny Key Encapsulation)",
+    "attack_type": "quantum_sike_break",
+    "year": 2023,
+    "quantum_impact": "critical",
+    "client": {
+        "kem_offers": ["SIKE", "KYBER1024", "x25519"],
+        "sig_offers": ["dilithium5", "falcon-1024", "ecdsa_secp384r1_sha384"],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": ["SIKE", "x25519"],
+        "sig_offers": ["ecdsa_secp384r1_sha384"],
+        "require_pq": false,
+        "pq_allowed": true
+    },
+    "mitigation": "Replace SIKE with NIST standardized PQ algorithms",
+    "cvss_score": 9.8
+}

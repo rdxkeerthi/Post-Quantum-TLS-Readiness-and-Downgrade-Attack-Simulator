@@ -1,0 +1,26 @@
+{
+  "name": "openssl_dos",
+  "description": "Simulate CVE-2021-3449 (OpenSSL DoS): MITM triggers renegotiation DoS.",
+  "client": {
+    "kem_offers": [],
+    "sig_offers": [],
+    "ciphers": ["AES128-GCM", "CHACHA20-POLY1305"],
+    "versions": ["TLS1.2", "TLS1.3"]
+  },
+  "server": {
+    "kem_offers": [],
+    "sig_offers": [],
+    "ciphers": ["AES128-GCM", "CHACHA20-POLY1305"],
+    "versions": ["TLS1.2", "TLS1.3"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "trigger_renegotiation_loop" }
+    ]
+  },
+  "expected": {
+    "detection": "renegotiation_dos",
+    "mitigation": "abort_connection"
+  }
+}

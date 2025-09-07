@@ -1,0 +1,24 @@
+{
+  "name": "heartbleed_attack",
+  "description": "Simulate CVE-2014-0160 (Heartbleed): MITM sends malicious heartbeat request.",
+  "client": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "server": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "send_heartbeat_overflow" }
+    ]
+  },
+  "expected": {
+    "detection": "heartbeat_overflow",
+    "mitigation": "abort_connection"
+  }
+}

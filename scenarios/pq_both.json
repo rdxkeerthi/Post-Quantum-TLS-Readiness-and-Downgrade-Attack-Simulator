@@ -1,6 +1,16 @@
 {
   "name": "PQ Both",
-  "client": {"pq_supported": true},
-  "server": {"pq_supported": true},
+  "client": {
+    "kem_offers": ["KYBER1024", "KYBER768", "X25519"],
+    "sig_offers": ["dilithium5", "falcon-1024", "ecdsa_secp384r1_sha384"],
+    "require_pq": true,
+    "pq_supported": true
+  },
+  "server": {
+    "kem_offers": ["KYBER1024", "KYBER768", "X25519"],
+    "sig_offers": ["dilithium5", "falcon-1024", "ecdsa_secp384r1_sha384"],
+    "require_pq": true,
+    "pq_supported": true
+  },
   "mitm": {"enabled": false}
 }

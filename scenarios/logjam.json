@@ -1,0 +1,22 @@
+{
+  "name": "logjam_attack",
+  "description": "Simulate CVE-2015-4000 (Logjam): MITM downgrades DH group to 512 bits.",
+  "client": {
+    "kem_offers": ["X25519", "KYBER1024"],
+    "sig_offers": ["ecdsa_secp256r1_sha256", "falcon-1024"]
+  },
+  "server": {
+    "kem_offers": ["X25519", "KYBER1024"],
+    "sig_offers": ["ecdsa_secp256r1_sha256", "falcon-1024"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "force_dh_group", "group_size": 512 }
+    ]
+  },
+  "expected": {
+    "detection": "weak_dh_group",
+    "mitigation": "abort_handshake"
+  }
+}

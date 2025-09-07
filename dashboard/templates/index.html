@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - PQ-TLS Simulator{% endblock %}
+
+{% block additional_styles %}
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .metric-card {
+        background: var(--primary-bg);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all var(--transition-speed) ease;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .recent-events {
+        margin-top: 3rem;
+    }
+
+    .event-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .event-item {
+        background: var(--primary-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all var(--transition-speed) ease;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .event-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .event-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .event-icon.success {
+        background: rgba(0, 176, 107, 0.1);
+        color: var(--success-color);
+    }
+
+    .event-icon.warning {
+        background: rgba(255, 159, 10, 0.1);
+        color: var(--warning-color);
+    }
+
+    .event-icon.error {
+        background: rgba(255, 59, 48, 0.1);
+        color: var(--error-color);
+    }
+
+    .event-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .event-title {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .event-description {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .event-time {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+    }
+{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-6">PQ-TLS Dashboard</h1>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-gray-500 text-sm">Total Scenarios</h3>
+            <p class="text-2xl font-semibold mt-1">{{ stats.total_scenarios }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-gray-500 text-sm">Active Tests</h3>
+            <p class="text-2xl font-semibold mt-1 text-blue-600">{{ stats.active_tests }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-gray-500 text-sm">Anomalies Today</h3>
+            <p class="text-2xl font-semibold mt-1 text-red-600">{{ stats.anomalies_today }}</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-4">
+            <h3 class="text-gray-500 text-sm">Success Rate</h3>
+            <p class="text-2xl font-semibold mt-1 text-green-600">{{ stats.success_rate }}%</p>
+        </div>
+    </div>
+
+    <!-- Recent Events -->
+    <div class="bg-white rounded-lg shadow-sm p-4">
+        <h2 class="text-lg font-semibold mb-4">Recent Events</h2>
+        <div class="space-y-4">
+            {% for event in recent_events %}
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <span class="inline-block h-2 w-2 rounded-full mt-2
+                               {% if event.status == 'success' %}bg-green-400
+                               {% elif event.status == 'warning' %}bg-yellow-400
+                               {% elif event.status == 'error' %}bg-red-400
+                               {% else %}bg-gray-400{% endif %}"></span>
+                </div>
+                <div class="ml-3 flex-1">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-900">{{ event.title }}</p>
+                        <span class="text-sm text-gray-500">{{ event.timestamp | format_timestamp }}</span>
+                    </div>
+                    <p class="text-sm text-gray-500">{{ event.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        <a href="/tests" 
+           class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center">
+                <div class="p-2 rounded-lg bg-blue-100">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900">Run Tests</h3>
+                    <p class="text-sm text-gray-500">Execute PQ-TLS test scenarios</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="/anomalies" 
+           class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center">
+                <div class="p-2 rounded-lg bg-red-100">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900">View Anomalies</h3>
+                    <p class="text-sm text-gray-500">Check detected security issues</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="/report" 
+           class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center">
+                <div class="p-2 rounded-lg bg-green-100">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900">Security Report</h3>
+                    <p class="text-sm text-gray-500">View security assessment</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Initialize with animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.metric-card, .event-item');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+</script>
+{% endblock %}

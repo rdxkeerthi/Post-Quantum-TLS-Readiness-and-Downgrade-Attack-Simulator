@@ -1,6 +1,16 @@
 {
   "name": "Classical Only Server",
-  "client": {"pq_supported": true},
-  "server": {"pq_supported": false},
+  "client": {
+    "kem_offers": ["KYBER768", "KYBER1024", "X25519"],
+    "sig_offers": ["falcon-512", "dilithium3", "ecdsa_secp256r1_sha256"],
+    "require_pq": true,
+    "pq_supported": true
+  },
+  "server": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "require_pq": false,
+    "pq_supported": false
+  },
   "mitm": {"enabled": false}
 }

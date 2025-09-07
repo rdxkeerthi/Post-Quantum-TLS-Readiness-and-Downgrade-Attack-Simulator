@@ -1,0 +1,24 @@
+{
+  "name": "renegotiation_attack",
+  "description": "Simulate CVE-2009-3555 (TLS Renegotiation): MITM injects renegotiation requests.",
+  "client": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "server": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "inject_renegotiation" }
+    ]
+  },
+  "expected": {
+    "detection": "renegotiation_injection",
+    "mitigation": "abort_connection"
+  }
+}

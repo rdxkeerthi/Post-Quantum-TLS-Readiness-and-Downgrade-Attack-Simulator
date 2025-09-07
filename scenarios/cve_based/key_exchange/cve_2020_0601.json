@@ -1,0 +1,22 @@
+{
+    "id": "CVE-2020-0601",
+    "name": "Windows CryptoAPI Spoofing Vulnerability",
+    "description": "Elliptic curve cryptography certificate validation vulnerability",
+    "attack_type": "ecdsa_spoof",
+    "year": 2020,
+    "quantum_impact": "high",
+    "client": {
+        "kem_offers": ["KYBER1024", "KYBER768", "x25519", "secp256r1"],
+        "sig_offers": ["falcon-512", "dilithium3", "ecdsa_secp256r1_sha256"],
+        "require_pq": true,
+        "require_hybrid": true
+    },
+    "server": {
+        "kem_offers": ["x25519", "secp256r1"],
+        "sig_offers": ["ecdsa_secp256r1_sha256"],
+        "require_pq": false,
+        "pq_allowed": false
+    },
+    "mitigation": "Use post-quantum signature schemes",
+    "cvss_score": 8.1
+}

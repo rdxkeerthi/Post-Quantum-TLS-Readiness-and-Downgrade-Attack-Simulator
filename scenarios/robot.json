@@ -1,0 +1,24 @@
+{
+  "name": "robot_attack",
+  "description": "Simulate CVE-2017-17428 (ROBOT): MITM exploits RSA padding oracle.",
+  "client": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "server": {
+    "kem_offers": ["X25519"],
+    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "versions": ["TLS1.2"]
+  },
+  "mitm": {
+    "enabled": true,
+    "actions": [
+      { "type": "trigger_rsa_oracle" }
+    ]
+  },
+  "expected": {
+    "detection": "rsa_padding_oracle",
+    "mitigation": "abort_handshake"
+  }
+}
