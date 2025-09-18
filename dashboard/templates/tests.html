@@ -4,9 +4,19 @@
 <div class="p-4">
     <h1 class="text-2xl font-bold mb-6">Test Scenarios</h1>
 
+    <div class="mb-4">
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="flex items-center gap-2">
+                <input type="file" id="scenario-file" name="file" accept=".json" class="text-sm" />
+                <button type="button" id="upload-btn" class="px-3 py-1 bg-green-600 text-white rounded-sm" onclick="uploadScenario()">Upload Scenario</button>
+                <span id="upload-status" class="text-sm text-muted"></span>
+            </div>
+        </form>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for scenario in scenarios %}
-        <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="bg-white rounded-lg shadow-sm p-6" data-scenario-path="{{ scenario.path }}">
             <div class="flex items-start justify-between">
                 <div>
                     <h3 class="font-semibold text-lg mb-2">{{ scenario.name }}</h3>
@@ -28,7 +38,7 @@
             </div>
 
             <div class="flex space-x-3">
-                <button onclick="runTest('{{ scenario.id }}')" 
+                <button onclick="runTest(this)" data-scenario-id="{{ scenario.id }}" 
                         class="flex-1 bg-blue-600 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Run Test
                 </button>
@@ -40,17 +50,98 @@
         </div>
         {% endfor %}
     </div>
+    <div id="blockchain-log-section" class="mt-6"></div>
 </div>
 
 <script>
-function runTest(scenarioId) {
-    // TODO: Implement test runner
-    console.log(`Running test scenario: ${scenarioId}`);
+function runTest(btn) {
+    const button = btn;
+    button.disabled = true;
+    button.textContent = 'Running...';
+    const card = button.closest('[data-scenario-path]');
+    const path = card ? card.getAttribute('data-scenario-path') : button.getAttribute('data-scenario-id');
+    const scenarioId = button.getAttribute('data-scenario-id') || path;
+    fetch('/api/run_scenario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scenario_path: path })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.textContent = 'Run Test';
+        btn.disabled = false;
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            showTestResult(scenarioId, data);
+        }
+        updateBlockchainLog();
+    });
 }
 
 function viewDetails(scenarioId) {
-    // TODO: Implement details viewer
-    console.log(`Viewing details for scenario: ${scenarioId}`);
+    fetch(`/scenario_details/${scenarioId}`)
+        .then(res => res.json())
+        .then(data => {
+            showScenarioDetails(data);
+        });
+}
+
+function showTestResult(scenarioId, result) {
+    // Show result in a modal or details section
+    let details = document.getElementById('test-result-details');
+    if (!details) {
+        details = document.createElement('div');
+        details.id = 'test-result-details';
+        document.body.appendChild(details);
+    }
+    details.innerHTML = `<div class='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50'>
+        <div class='bg-white rounded-lg p-6 max-w-lg w-full shadow-lg'>
+            <h2 class='text-xl font-bold mb-2'>Test Result</h2>
+            <pre>${JSON.stringify(result, null, 2)}</pre>
+            <button onclick="this.parentElement.parentElement.remove()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Close</button>
+        </div>
+    </div>`;
+}
+
+function showScenarioDetails(data) {
+    let details = document.getElementById('scenario-details-modal');
+    if (!details) {
+        details = document.createElement('div');
+        details.id = 'scenario-details-modal';
+        document.body.appendChild(details);
+    }
+    details.innerHTML = `<div class='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50'>
+        <div class='bg-white rounded-lg p-6 max-w-lg w-full shadow-lg'>
+            <h2 class='text-xl font-bold mb-2'>Scenario Details</h2>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+            <button onclick="this.parentElement.parentElement.remove()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Close</button>
+        </div>
+    </div>`;
+}
+
+function updateBlockchainLog() {
+    fetch('/blockchain_log')
+        .then(res => res.text())
+        .then(html => {
+            // Optionally update a log section in the UI
+            const logSection = document.getElementById('blockchain-log-section');
+            if (logSection) {
+                logSection.innerHTML = html;
+            }
+        });
+}
+
+function uploadScenario() {
+    const fileInput = document.getElementById('scenario-file');
+    const status = document.getElementById('upload-status');
+    if (!fileInput.files.length) { status.textContent = 'No file selected'; return; }
+    const form = new FormData();
+    form.append('file', fileInput.files[0]);
+    fetch('/upload_scenario', { method: 'POST', body: form })
+        .then(r => r.json())
+        .then(j => { if (j.ok) { status.textContent = 'Uploaded'; setTimeout(()=>location.reload(),800); } else { status.textContent = 'Upload failed'; } })
+        .catch(e => { status.textContent = 'Upload error'; });
 }
 </script>
 {% endblock %}

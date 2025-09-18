@@ -1,0 +1,6 @@
+{
+  "name": "Classical Only Server",
+  "client": {"pq_supported": true},
+  "server": {"pq_supported": false},
+  "mitm": {"enabled": false}
+}

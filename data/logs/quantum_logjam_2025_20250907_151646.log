@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-09-07T15:16:46.219719",
+  "scenario": "quantum_logjam_2025",
+  "attack": "none",
+  "handshake": {
+    "selected_kem": "secp256r1",
+    "selected_sig": "ecdsa_secp256r1_sha256",
+    "alerts": [],
+    "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "falcon-512",
+        "dilithium3",
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server": {
+      "supported_groups": [
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    }
+  }
+}

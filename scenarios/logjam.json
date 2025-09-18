@@ -2,21 +2,50 @@
   "name": "logjam_attack",
   "description": "Simulate CVE-2015-4000 (Logjam): MITM downgrades DH group to 512 bits.",
   "client": {
-    "kem_offers": ["X25519", "KYBER1024"],
-    "sig_offers": ["ecdsa_secp256r1_sha256", "falcon-1024"]
+    "kem_offers": [
+      "X25519",
+      "KYBER1024"
+    ],
+    "sig_offers": [
+      "ecdsa_secp256r1_sha256",
+      "falcon-1024"
+    ]
   },
   "server": {
-    "kem_offers": ["X25519", "KYBER1024"],
-    "sig_offers": ["ecdsa_secp256r1_sha256", "falcon-1024"]
+    "kem_offers": [
+      "X25519",
+      "KYBER1024"
+    ],
+    "sig_offers": [
+      "ecdsa_secp256r1_sha256",
+      "falcon-1024"
+    ]
   },
   "mitm": {
     "enabled": true,
     "actions": [
-      { "type": "force_dh_group", "group_size": 512 }
+      {
+        "type": "force_dh_group",
+        "group_size": 512
+      }
     ]
   },
   "expected": {
     "detection": "weak_dh_group",
     "mitigation": "abort_handshake"
+  },
+  "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+  "last_run": "2025-09-18T17:54:02.615539",
+  "alerts": [
+    "Possible downgrade: PQ supported but classical negotiated."
+  ],
+  "selected_kem": "X25519",
+  "selected_sig": "ecdsa_secp256r1_sha256"
+  ,
+  "anomaly": {
+    "severity": "Medium",
+    "description": "Detected use of weak DH group (512 bits) during handshake - possible Logjam downgrade.",
+    "rules": ["weak_dh_group"],
+    "timestamp": "2025-09-18T17:54:10.000000"
   }
 }

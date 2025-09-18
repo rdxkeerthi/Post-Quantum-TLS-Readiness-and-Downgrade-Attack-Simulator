@@ -11131,5 +11131,3534 @@
       "require_hybrid": false
     },
     "anomalies": []
+  },
+  {
+    "scenario": "default",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-07T15:11:08.330831",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "quantum_logjam_2025",
+    "attack": "strip_pq_groups",
+    "timestamp": "2025-09-07T15:16:27.473883",
+    "result": {
+      "selected_kem": "secp256r1",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "falcon-512",
+        "dilithium3",
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "quantum_poodle_2025",
+    "attack": "force_tls12",
+    "timestamp": "2025-09-07T15:16:27.537318",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "quantum_heartbleed_2025",
+    "attack": "strip_pq_sigs",
+    "timestamp": "2025-09-07T15:16:27.638573",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "sphincs-plus",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "quantum_robot_2025",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-07T15:16:27.699963",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "rainbow-iii",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "quantum_renegotiation_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:27.781933",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "poodle",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:45.618214",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:45.659777",
+    "scenario": "poodle.json",
+    "scenario_id": "POODLE",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": false,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'poodle', 'attack': 'none', 'timestamp': '2025-09-07T15:16:45.618214', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Negotiation context mismatch.'], 'transcript': '[=] client: ClientHello kem=[], sigs=[]\\n[x] server: No mutual KEM/SIG\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only', 'success': True}, 'client_info': {'supported_groups': [], 'signature_algorithms': [], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': [], 'signature_algorithms': [], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [],
+      "sig_offers": [],
+      "ciphers": [
+        "AES128-CBC",
+        "AES256-CBC"
+      ],
+      "versions": [
+        "TLS1.0",
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [],
+      "sig_offers": [],
+      "ciphers": [
+        "AES128-CBC",
+        "AES256-CBC"
+      ],
+      "versions": [
+        "TLS1.0",
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "quantum_poodle_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:45.718479",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:45.738543",
+    "scenario": "quantum_poodle_2025.json",
+    "scenario_id": "QUANTUM_POODLE_2025",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'quantum_poodle_2025', 'attack': 'none', 'timestamp': '2025-09-07T15:16:45.718479', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'KYBER512', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'KYBER512', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "KYBER512",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "renegotiation",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:45.792249",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:45.835088",
+    "scenario": "renegotiation.json",
+    "scenario_id": "RENEGOTIATION",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": false,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'renegotiation', 'attack': 'none', 'timestamp': '2025-09-07T15:16:45.792249', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "logjam",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:45.892213",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:45.906058",
+    "scenario": "logjam.json",
+    "scenario_id": "LOGJAM",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'logjam', 'attack': 'none', 'timestamp': '2025-09-07T15:16:45.892213', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.'], 'transcript': \"[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519', 'KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'falcon-1024'], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519', 'KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'falcon-1024'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "default",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:45.980935",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:45.994451",
+    "scenario": "default.json",
+    "scenario_id": "DEFAULT",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'default', 'attack': 'none', 'timestamp': '2025-09-07T15:16:45.980935', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.'], 'transcript': \"[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "grease": true,
+      "cert_sigalg": "dilithium3",
+      "impl": "OpenSSL"
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "grease": true,
+      "cert_sigalg": "dilithium3",
+      "impl": "BoringSSL"
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "heartbleed",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.054350",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.073828",
+    "scenario": "heartbleed.json",
+    "scenario_id": "HEARTBLEED",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": false,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'heartbleed', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.054350', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "robot",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.148175",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.161484",
+    "scenario": "robot.json",
+    "scenario_id": "ROBOT",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": false,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'robot', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.148175', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "versions": [
+        "TLS1.2"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "quantum_logjam_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.222103",
+    "result": {
+      "selected_kem": "secp256r1",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "falcon-512",
+        "dilithium3",
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.235580",
+    "scenario": "quantum_logjam_2025.json",
+    "scenario_id": "QUANTUM_LOGJAM_2025",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'quantum_logjam_2025', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.222103', 'result': {'selected_kem': 'secp256r1', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519', 'secp256r1'], 'signature_algorithms': ['falcon-512', 'dilithium3', 'rsa_pkcs1_sha256', 'ecdsa_secp256r1_sha256'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['x25519', 'secp256r1'], 'signature_algorithms': ['rsa_pkcs1_sha256', 'ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: secp256r1, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "sig_offers": [
+        "falcon-512",
+        "dilithium3",
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "x25519",
+        "secp256r1"
+      ],
+      "sig_offers": [
+        "rsa_pkcs1_sha256",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "pq_allowed": false,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "openssl_dos",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.291368",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.305364",
+    "scenario": "openssl_dos.json",
+    "scenario_id": "OPENSSL_DOS",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": false,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'openssl_dos', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.291368', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Negotiation context mismatch.'], 'transcript': '[=] client: ClientHello kem=[], sigs=[]\\n[x] server: No mutual KEM/SIG\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only', 'success': True}, 'client_info': {'supported_groups': [], 'signature_algorithms': [], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': [], 'signature_algorithms': [], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [],
+      "sig_offers": [],
+      "ciphers": [
+        "AES128-GCM",
+        "CHACHA20-POLY1305"
+      ],
+      "versions": [
+        "TLS1.2",
+        "TLS1.3"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [],
+      "sig_offers": [],
+      "ciphers": [
+        "AES128-GCM",
+        "CHACHA20-POLY1305"
+      ],
+      "versions": [
+        "TLS1.2",
+        "TLS1.3"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "mitm_strip_pq",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.358522",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.373860",
+    "scenario": "mitm_strip_pq.json",
+    "scenario_id": "MITM_STRIP_PQ",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'mitm_strip_pq', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.358522', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.'], 'transcript': \"[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "grease": true,
+      "cert_sigalg": "dilithium3",
+      "impl": "OpenSSL"
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER768",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "dilithium3",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "grease": true,
+      "cert_sigalg": "dilithium3",
+      "impl": "BoringSSL"
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "quantum_heartbleed_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.430215",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "sphincs-plus",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.462017",
+    "scenario": "quantum_heartbleed_2025.json",
+    "scenario_id": "QUANTUM_HEARTBLEED_2025",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'quantum_heartbleed_2025', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.430215', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'sphincs-plus', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'x25519'], 'signature_algorithms': ['ecdsa_secp384r1_sha384'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "sphincs-plus",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "x25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "pq_allowed": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "quantum_robot_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.518937",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "rainbow-iii",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.533836",
+    "scenario": "quantum_robot_2025.json",
+    "scenario_id": "QUANTUM_ROBOT_2025",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'quantum_robot_2025', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.518937', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'NTRU-HPS-4096', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'rainbow-iii', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'NTRU-HPS-4096', 'x25519'], 'signature_algorithms': ['dilithium5', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "rainbow-iii",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "NTRU-HPS-4096",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "pq_allowed": true,
+      "require_hybrid": false
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "classical_only_server",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.593465",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER768",
+        "KYBER1024",
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "falcon-512",
+        "dilithium3",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.607704",
+    "scenario": "classical_only_server.json",
+    "scenario_id": "CLASSICAL_ONLY_SERVER",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'classical_only_server', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.593465', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER768', 'KYBER1024', 'X25519'], 'signature_algorithms': ['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256'], 'require_pq': True, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER768",
+        "KYBER1024",
+        "X25519"
+      ],
+      "sig_offers": [
+        "falcon-512",
+        "dilithium3",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "pq_supported": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "pq_supported": false,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "quantum_renegotiation_2025",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.676416",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.694590",
+    "scenario": "quantum_renegotiation_2025.json",
+    "scenario_id": "QUANTUM_RENEGOTIATION_2025",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'quantum_renegotiation_2025', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.676416', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'Frodo1344', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'picnic-L5-FS', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'Frodo1344', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'picnic-L5-FS', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "allow_renegotiation": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true,
+      "pq_allowed": true,
+      "secure_renegotiation": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "pq_both",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.761603",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'X25519'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "X25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.775748",
+    "scenario": "pq_both.json",
+    "scenario_id": "PQ_BOTH",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'pq_both', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.761603', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'X25519'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'X25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': False}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'X25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'X25519'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "X25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "pq_supported": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "X25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "pq_supported": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "downgrade_attack",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:46.830556",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.848236",
+    "scenario": "downgrade_attack.json",
+    "scenario_id": "DOWNGRADE_ATTACK",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'downgrade_attack', 'attack': 'none', 'timestamp': '2025-09-07T15:16:46.830556', 'result': {'selected_kem': 'X25519', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.'], 'transcript': \"[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': False, 'require_hybrid': False}, 'server_info': {'supported_groups': ['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], 'signature_algorithms': ['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: X25519, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "versions": [
+        "TLS1.2",
+        "TLS1.3"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "versions": [
+        "TLS1.2",
+        "TLS1.3"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2016_0800",
+    "attack": "force_tls12",
+    "timestamp": "2025-09-07T15:16:46.921207",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:46.941680",
+    "scenario": "cve_based/protocol/cve_2016_0800.json",
+    "scenario_id": "CVE_BASED/PROTOCOL/CVE_2016_0800",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[2025-09-07T15:16:46.917972] [MITM] Downgrade attack: Forcing TLS 1.2!\n[BLOCKCHAIN] Logged event: {'scenario': 'cve_2016_0800', 'attack': 'force_tls12', 'timestamp': '2025-09-07T15:16:46.921207', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2015_3197",
+    "attack": "strip_pq_groups",
+    "timestamp": "2025-09-07T15:16:46.995612",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.022813",
+    "scenario": "cve_based/protocol/cve_2015_3197.json",
+    "scenario_id": "CVE_BASED/PROTOCOL/CVE_2015_3197",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2015_3197', 'attack': 'strip_pq_groups', 'timestamp': '2025-09-07T15:16:46.995612', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2025_9903",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-07T15:16:47.078610",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.094503",
+    "scenario": "cve_based/protocol/cve_2025_9903.json",
+    "scenario_id": "CVE_BASED/PROTOCOL/CVE_2025_9903",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2025_9903', 'attack': 'strip_hybrid_only', 'timestamp': '2025-09-07T15:16:47.078610', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2016_2107",
+    "attack": "strip_pq_groups",
+    "timestamp": "2025-09-07T15:16:47.163306",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.177399",
+    "scenario": "cve_based/key_exchange/cve_2016_2107.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2016_2107",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2016_2107', 'attack': 'strip_pq_groups', 'timestamp': '2025-09-07T15:16:47.163306', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2019_1547",
+    "attack": "strip_pq_sigs",
+    "timestamp": "2025-09-07T15:16:47.241380",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.255306",
+    "scenario": "cve_based/key_exchange/cve_2019_1547.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2019_1547",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2019_1547', 'attack': 'strip_pq_sigs', 'timestamp': '2025-09-07T15:16:47.241380', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2023_sike",
+    "attack": "strip_pq_groups",
+    "timestamp": "2025-09-07T15:16:47.306485",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "SIKE",
+        "KYBER1024",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "SIKE",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.330864",
+    "scenario": "cve_based/key_exchange/cve_2023_sike.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2023_SIKE",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2023_sike', 'attack': 'strip_pq_groups', 'timestamp': '2025-09-07T15:16:47.306485', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['SIKE', 'KYBER1024', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['SIKE', 'x25519'], 'signature_algorithms': ['ecdsa_secp384r1_sha384'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "SIKE",
+        "KYBER1024",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "SIKE",
+        "x25519"
+      ],
+      "sig_offers": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "pq_allowed": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2020_0601",
+    "attack": "strip_pq_sigs",
+    "timestamp": "2025-09-07T15:16:47.378647",
+    "result": {
+      "selected_kem": "secp256r1",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "falcon-512",
+        "dilithium3",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "x25519",
+        "secp256r1"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.398432",
+    "scenario": "cve_based/key_exchange/cve_2020_0601.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2020_0601",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2020_0601', 'attack': 'strip_pq_sigs', 'timestamp': '2025-09-07T15:16:47.378647', 'result': {'selected_kem': 'secp256r1', 'selected_sig': 'ecdsa_secp256r1_sha256', 'alerts': ['Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\\n[!] network: ClientHello modified by MITM\\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519', 'secp256r1'], 'signature_algorithms': ['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['x25519', 'secp256r1'], 'signature_algorithms': ['ecdsa_secp256r1_sha256'], 'require_pq': False, 'require_hybrid': False}, 'anomalies': []}\n=== RESULT ===\nKEM: secp256r1, SIG: ecdsa_secp256r1_sha256\n=== ALERTS ===\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519",
+        "secp256r1"
+      ],
+      "sig_offers": [
+        "falcon-512",
+        "dilithium3",
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "x25519",
+        "secp256r1"
+      ],
+      "sig_offers": [
+        "ecdsa_secp256r1_sha256"
+      ],
+      "require_pq": false,
+      "pq_allowed": false,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2014_3566",
+    "attack": "force_tls12",
+    "timestamp": "2025-09-07T15:16:47.450274",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.483303",
+    "scenario": "cve_based/key_exchange/cve_2014_3566.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2014_3566",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[2025-09-07T15:16:47.448118] [MITM] Downgrade attack: Forcing TLS 1.2!\n[BLOCKCHAIN] Logged event: {'scenario': 'cve_2014_3566', 'attack': 'force_tls12', 'timestamp': '2025-09-07T15:16:47.450274', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.2, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2015_0204",
+    "attack": "strip_pq_groups",
+    "timestamp": "2025-09-07T15:16:47.536702",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.554734",
+    "scenario": "cve_based/key_exchange/cve_2015_0204.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2015_0204",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2015_0204', 'attack': 'strip_pq_groups', 'timestamp': '2025-09-07T15:16:47.536702', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['rainbow-iii', 'rainbow-iii', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['rainbow-iii', 'rainbow-iii', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2025_9901",
+    "attack": "strip_pq_sigs",
+    "timestamp": "2025-09-07T15:16:47.599217",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.618438",
+    "scenario": "cve_based/key_exchange/cve_2025_9901.json",
+    "scenario_id": "CVE_BASED/KEY_EXCHANGE/CVE_2025_9901",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2025_9901', 'attack': 'strip_pq_sigs', 'timestamp': '2025-09-07T15:16:47.599217', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['rainbow-iii', 'rainbow-iii', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['rainbow-iii', 'rainbow-iii', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': False, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "rainbow-iii",
+        "rainbow-iii",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": true,
+      "pq_allowed": false
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2025_9902",
+    "attack": "strip_pq_sigs",
+    "timestamp": "2025-09-07T15:16:47.669169",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated.",
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "dilithium5",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "dilithium5",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.693004",
+    "scenario": "cve_based/implementation/cve_2025_9902.json",
+    "scenario_id": "CVE_BASED/IMPLEMENTATION/CVE_2025_9902",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2025_9902', 'attack': 'strip_pq_sigs', 'timestamp': '2025-09-07T15:16:47.669169', 'result': {'selected_kem': 'none', 'selected_sig': 'none', 'alerts': ['Possible downgrade: PQ supported but classical negotiated.', 'Negotiation context mismatch.'], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[!] network: ClientHello modified by MITM\\n[x] server: No mutual KEM/SIG\\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\\n[!] detector: Negotiation context mismatch.\\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'dilithium5', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'dilithium5', 'dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: none, SIG: none\n=== ALERTS ===\nPossible downgrade: PQ supported but classical negotiated.\nNegotiation context mismatch.\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "dilithium5",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "dilithium5",
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2021_3449",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:47.742711",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.758495",
+    "scenario": "cve_based/implementation/cve_2021_3449.json",
+    "scenario_id": "CVE_BASED/IMPLEMENTATION/CVE_2021_3449",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2021_3449', 'attack': 'none', 'timestamp': '2025-09-07T15:16:47.742711', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "cve_2022_3786",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:16:47.826989",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-07T15:16:47.843468",
+    "scenario": "cve_based/implementation/cve_2022_3786.json",
+    "scenario_id": "CVE_BASED/IMPLEMENTATION/CVE_2022_3786",
+    "type": "pq_tls_simulation",
+    "result": {
+      "quantum_vulnerability": false,
+      "pq_algorithms_used": true,
+      "mitigation_success": false,
+      "transcript": "[BLOCKCHAIN] Logged event: {'scenario': 'cve_2022_3786', 'attack': 'none', 'timestamp': '2025-09-07T15:16:47.826989', 'result': {'selected_kem': 'KYBER1024', 'selected_sig': 'falcon-1024', 'alerts': [], 'transcript': \"[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\", 'success': True}, 'client_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'server_info': {'supported_groups': ['KYBER1024', 'KYBER768', 'x25519'], 'signature_algorithms': ['dilithium5', 'falcon-1024', 'ecdsa_secp384r1_sha384'], 'require_pq': True, 'require_hybrid': True}, 'anomalies': []}\n=== RESULT ===\nKEM: KYBER1024, SIG: falcon-1024\n=== ALERTS ===\nnone\n=== TRANSCRIPT ===\n[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature\n"
+    },
+    "client_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server_info": {
+      "kem_offers": [
+        "KYBER1024",
+        "KYBER768",
+        "x25519"
+      ],
+      "sig_offers": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "version": "2025.1"
+  },
+  {
+    "scenario": "poodle",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:17:32.656304",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "openssl_dos",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:17:32.670169",
+    "result": {
+      "selected_kem": "none",
+      "selected_sig": "none",
+      "alerts": [
+        "Negotiation context mismatch."
+      ],
+      "transcript": "[=] client: ClientHello kem=[], sigs=[]\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [],
+      "signature_algorithms": [],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "downgrade_attack",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:17:32.680471",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "none",
+    "timestamp": "2025-09-07T15:17:32.696921",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-08T13:41:35.399207",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-08T13:41:41.709033",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "none",
+    "timestamp": "2025-09-08T13:42:16.471889",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-08T14:17:14.008679",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-10T13:18:23.013810",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-10T13:24:37.702812",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-10T13:25:03.356214",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "scenario": "logjam",
+    "attack": "strip_hybrid_only",
+    "timestamp": "2025-09-10T13:27:46.567061",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[!] network: ClientHello modified by MITM\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "success": true
+    },
+    "client_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server_info": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "anomalies": []
+  },
+  {
+    "timestamp": "2025-09-18T17:50:22.940015",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:50:27.916209",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:51:55.014573",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:51:55.880335",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:51:56.462662",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:51:58.941620",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:51:59.661970",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:00.593668",
+    "scenario": "downgrade_attack.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:01.526751",
+    "scenario": "logjam.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:02.382111",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:03.299408",
+    "scenario": "mitm_strip_pq.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:05.641557",
+    "scenario": "quantum_renegotiation_2025.json",
+    "result": {
+      "selected_kem": "KYBER1024",
+      "selected_sig": "falcon-1024",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:52:09.190305",
+    "scenario": "logjam.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:53:41.195962",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:53:42.492695",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:53:42.804620",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:53:43.101331",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:54:01.892710",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T17:54:02.620895",
+    "scenario": "logjam.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:04:43.783145",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:04:44.401970",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:04:45.508610",
+    "scenario": "heartbleed.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['X25519'], sigs=['ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:20:11.586372",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:20:35.120670",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:21:15.805064",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:22:16.081257",
+    "scenario": "default.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [
+        "Possible downgrade: PQ supported but classical negotiated."
+      ],
+      "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:22:22.489376",
+    "scenario": "classical_only_server.json",
+    "result": {
+      "selected_kem": "X25519",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
+  },
+  {
+    "timestamp": "2025-09-18T18:24:02.446205",
+    "scenario": "quantum_logjam_2025.json",
+    "result": {
+      "selected_kem": "secp256r1",
+      "selected_sig": "ecdsa_secp256r1_sha256",
+      "alerts": [],
+      "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+      "anomaly": []
+    },
+    "type": "pq_tls_simulation",
+    "version": "2025.1"
   }
 ]

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-09-07T15:16:47.304418",
+  "scenario": "cve_2023_sike",
+  "attack": "strip_pq_groups",
+  "handshake": {
+    "selected_kem": "none",
+    "selected_sig": "none",
+    "alerts": [
+      "Negotiation context mismatch."
+    ],
+    "transcript": "[=] client: ClientHello kem=['KYBER1024'], sigs=['falcon-1024']\n[!] network: ClientHello modified by MITM\n[x] server: No mutual KEM/SIG\n[!] detector: Negotiation context mismatch.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [
+        "SIKE",
+        "KYBER1024",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server": {
+      "supported_groups": [
+        "SIKE",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    }
+  }
+}

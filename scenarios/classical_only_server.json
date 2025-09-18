@@ -1,16 +1,35 @@
 {
   "name": "Classical Only Server",
   "client": {
-    "kem_offers": ["KYBER768", "KYBER1024", "X25519"],
-    "sig_offers": ["falcon-512", "dilithium3", "ecdsa_secp256r1_sha256"],
+    "kem_offers": [
+      "KYBER768",
+      "KYBER1024",
+      "X25519"
+    ],
+    "sig_offers": [
+      "falcon-512",
+      "dilithium3",
+      "ecdsa_secp256r1_sha256"
+    ],
     "require_pq": true,
     "pq_supported": true
   },
   "server": {
-    "kem_offers": ["X25519"],
-    "sig_offers": ["ecdsa_secp256r1_sha256"],
+    "kem_offers": [
+      "X25519"
+    ],
+    "sig_offers": [
+      "ecdsa_secp256r1_sha256"
+    ],
     "require_pq": false,
     "pq_supported": false
   },
-  "mitm": {"enabled": false}
+  "mitm": {
+    "enabled": false
+  },
+  "transcript": "[=] client: ClientHello kem=['KYBER768', 'KYBER1024', 'X25519'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+  "last_run": "2025-09-18T18:22:22.485266",
+  "alerts": [],
+  "selected_kem": "X25519",
+  "selected_sig": "ecdsa_secp256r1_sha256"
 }

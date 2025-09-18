@@ -1,10 +1,23 @@
 {
   "name": "PQ Hybrid Success 2025+",
   "tls_version": "1.4",
-  "pq_extensions": ["pq_key_confirmation", "pq_session_resumption"],
+  "pq_extensions": [
+    "pq_key_confirmation",
+    "pq_session_resumption"
+  ],
   "client": {
-    "kem_offers": ["X25519", "KYBER768", "KYBER1024", "HYBRID_X25519_KYBER1024"],
-    "sig_offers": ["ecdsa_secp256r1_sha256", "dilithium3", "falcon-1024", "hybrid_ecdsa_falcon1024"],
+    "kem_offers": [
+      "X25519",
+      "KYBER768",
+      "KYBER1024",
+      "HYBRID_X25519_KYBER1024"
+    ],
+    "sig_offers": [
+      "ecdsa_secp256r1_sha256",
+      "dilithium3",
+      "falcon-1024",
+      "hybrid_ecdsa_falcon1024"
+    ],
     "require_pq": true,
     "require_hybrid": true,
     "pq_allowed": true,
@@ -13,8 +26,18 @@
     "impl": "OpenSSL"
   },
   "server": {
-    "kem_offers": ["X25519", "KYBER768", "KYBER1024", "HYBRID_X25519_KYBER1024"],
-    "sig_offers": ["ecdsa_secp256r1_sha256", "dilithium3", "falcon-1024", "hybrid_ecdsa_falcon1024"],
+    "kem_offers": [
+      "X25519",
+      "KYBER768",
+      "KYBER1024",
+      "HYBRID_X25519_KYBER1024"
+    ],
+    "sig_offers": [
+      "ecdsa_secp256r1_sha256",
+      "dilithium3",
+      "falcon-1024",
+      "hybrid_ecdsa_falcon1024"
+    ],
     "require_pq": true,
     "require_hybrid": true,
     "pq_allowed": true,
@@ -29,5 +52,12 @@
   },
   "mitm": {
     "enabled": false
-  }
+  },
+  "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER768', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'dilithium3', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+  "last_run": "2025-09-18T18:22:16.076557",
+  "alerts": [
+    "Possible downgrade: PQ supported but classical negotiated."
+  ],
+  "selected_kem": "X25519",
+  "selected_sig": "ecdsa_secp256r1_sha256"
 }

@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-09-07T15:16:46.827305",
+  "scenario": "downgrade_attack",
+  "attack": "none",
+  "handshake": {
+    "selected_kem": "X25519",
+    "selected_sig": "ecdsa_secp256r1_sha256",
+    "alerts": [
+      "Possible downgrade: PQ supported but classical negotiated."
+    ],
+    "transcript": "[=] client: ClientHello kem=['X25519', 'KYBER1024', 'HYBRID_X25519_KYBER1024'], sigs=['ecdsa_secp256r1_sha256', 'falcon-1024', 'hybrid_ecdsa_falcon1024']\n[=] server: ServerHello selects kem=X25519, sig=ecdsa_secp256r1_sha256\n[!] detector: Possible downgrade: PQ supported but classical negotiated.\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    },
+    "server": {
+      "supported_groups": [
+        "X25519",
+        "KYBER1024",
+        "HYBRID_X25519_KYBER1024"
+      ],
+      "signature_algorithms": [
+        "ecdsa_secp256r1_sha256",
+        "falcon-1024",
+        "hybrid_ecdsa_falcon1024"
+      ],
+      "require_pq": false,
+      "require_hybrid": false
+    }
+  }
+}

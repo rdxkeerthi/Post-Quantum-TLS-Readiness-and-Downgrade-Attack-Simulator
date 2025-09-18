@@ -1,23 +1,46 @@
 {
-    "name": "QUANTUM-2025-001",
-    "description": "Modern Quantum-aware LOGJAM - Tests for quantum-safe key exchange",
-    "risk_level": "CRITICAL",
-    "client": {
-        "kem_offers": ["KYBER1024", "KYBER768", "x25519", "secp256r1"],
-        "sig_offers": ["falcon-512", "dilithium3", "rsa_pkcs1_sha256", "ecdsa_secp256r1_sha256"],
-        "require_pq": true,
-        "require_hybrid": true,
-        "pq_allowed": true
-    },
-    "server": {
-        "kem_offers": ["x25519", "secp256r1"],
-        "sig_offers": ["rsa_pkcs1_sha256", "ecdsa_secp256r1_sha256"],
-        "require_pq": false,
-        "pq_allowed": false
-    },
-    "attack": {
-        "type": "strip_pq_groups",
-        "success_conditions": ["!require_pq"],
-        "mitigation": "require_pq_kex"
-    }
+  "name": "QUANTUM-2025-001",
+  "description": "Modern Quantum-aware LOGJAM - Tests for quantum-safe key exchange",
+  "risk_level": "CRITICAL",
+  "client": {
+    "kem_offers": [
+      "KYBER1024",
+      "KYBER768",
+      "x25519",
+      "secp256r1"
+    ],
+    "sig_offers": [
+      "falcon-512",
+      "dilithium3",
+      "rsa_pkcs1_sha256",
+      "ecdsa_secp256r1_sha256"
+    ],
+    "require_pq": true,
+    "require_hybrid": true,
+    "pq_allowed": true
+  },
+  "server": {
+    "kem_offers": [
+      "x25519",
+      "secp256r1"
+    ],
+    "sig_offers": [
+      "rsa_pkcs1_sha256",
+      "ecdsa_secp256r1_sha256"
+    ],
+    "require_pq": false,
+    "pq_allowed": false
+  },
+  "attack": {
+    "type": "strip_pq_groups",
+    "success_conditions": [
+      "!require_pq"
+    ],
+    "mitigation": "require_pq_kex"
+  },
+  "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768', 'secp256r1'], sigs=['falcon-512', 'dilithium3', 'ecdsa_secp256r1_sha256']\n[=] server: ServerHello selects kem=secp256r1, sig=ecdsa_secp256r1_sha256\n[=] report: TLS Version: TLS1.3, PQ: Classical Only",
+  "last_run": "2025-09-18T18:24:02.444054",
+  "alerts": [],
+  "selected_kem": "secp256r1",
+  "selected_sig": "ecdsa_secp256r1_sha256"
 }

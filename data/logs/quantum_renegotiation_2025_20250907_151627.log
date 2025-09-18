@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-09-07T15:16:27.778997",
+  "scenario": "quantum_renegotiation_2025",
+  "attack": "none",
+  "handshake": {
+    "selected_kem": "KYBER1024",
+    "selected_sig": "falcon-1024",
+    "alerts": [],
+    "transcript": "[=] client: ClientHello kem=['KYBER1024', 'KYBER768'], sigs=['falcon-1024']\n[=] server: ServerHello selects kem=KYBER1024, sig=falcon-1024\n[=] report: TLS Version: TLS1.3, PQ: PQ KEM, PQ Signature",
+    "success": true
+  },
+  "config": {
+    "client": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    },
+    "server": {
+      "supported_groups": [
+        "KYBER1024",
+        "KYBER768",
+        "Frodo1344",
+        "x25519"
+      ],
+      "signature_algorithms": [
+        "dilithium5",
+        "falcon-1024",
+        "picnic-L5-FS",
+        "ecdsa_secp384r1_sha384"
+      ],
+      "require_pq": true,
+      "require_hybrid": true
+    }
+  }
+}

@@ -118,6 +118,31 @@
             <p class="text-2xl font-semibold mt-1">{{ stats.compliance_score }}%</p>
         </div>
     </div>
+    <!-- Analytics Summary -->
+    <div class="bg-white rounded-lg shadow-sm mb-6 p-4">
+        <h2 class="text-lg font-semibold mb-3">Analytics Summary</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="mb-1 text-sm text-gray-500">Risk Distribution</p>
+                {% if analytics %}
+                <ul class="list-group">
+                    {% for level, count in analytics.items() %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ level }}
+                        <span class="badge bg-secondary rounded-pill">{{ count }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="text-muted">No analytics yet. Run scenarios to populate.</div>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <p class="mb-1 text-sm text-gray-500">Notes</p>
+                <pre>{{ stats | format_json }}</pre>
+            </div>
+        </div>
+    </div>
 
     <!-- Vulnerabilities Table -->
     <div class="bg-white rounded-lg shadow-sm mb-6">
@@ -161,7 +186,50 @@
         </div>
     </div>
 </div>
+    <!-- Charts Section -->
+    <div class="bg-white rounded-lg shadow-sm mb-6 p-4">
+        <h2 class="text-lg font-semibold mb-4">Analytics</h2>
+        <canvas id="attacksBlockedChart" height="120"></canvas>
+        <canvas id="pqReadinessChart" height="120" class="mt-6"></canvas>
+    </div>
 {% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Attacks Blocked Chart
+const ctx1 = document.getElementById('attacksBlockedChart').getContext('2d');
+new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+        labels: ['Blocked', 'Not Blocked'],
+        datasets: [{
+            data: [{{ stats.attacks_blocked }}, 100-{{ stats.attacks_blocked }}],
+            backgroundColor: ['#34C759', '#FF3B30'],
+        }]
+    },
+    options: {
+        plugins: { legend: { position: 'bottom' } },
+        cutout: '70%'
+    }
+});
+
+// PQ Readiness Chart
+const ctx2 = document.getElementById('pqReadinessChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['PQ Readiness', 'Compliance'],
+        datasets: [{
+            label: 'Score',
+            data: [{{ stats.pq_readiness }}, {{ stats.compliance_score }}],
+            backgroundColor: ['#007AFF', '#34C759'],
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 100 } }
+    }
+});
+</script>
 </body>
 </html>

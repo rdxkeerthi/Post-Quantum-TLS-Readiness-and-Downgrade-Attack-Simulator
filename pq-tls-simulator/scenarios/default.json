@@ -1,0 +1,33 @@
+{
+  "name": "PQ Hybrid Success 2025+",
+  "tls_version": "1.4",
+  "pq_extensions": ["pq_key_confirmation", "pq_session_resumption"],
+  "client": {
+    "kem_offers": ["X25519", "KYBER768", "KYBER1024", "HYBRID_X25519_KYBER1024"],
+    "sig_offers": ["ecdsa_secp256r1_sha256", "dilithium3", "falcon-1024", "hybrid_ecdsa_falcon1024"],
+    "require_pq": true,
+    "require_hybrid": true,
+    "pq_allowed": true,
+    "grease": true,
+    "cert_sigalg": "dilithium3",
+    "impl": "OpenSSL"
+  },
+  "server": {
+    "kem_offers": ["X25519", "KYBER768", "KYBER1024", "HYBRID_X25519_KYBER1024"],
+    "sig_offers": ["ecdsa_secp256r1_sha256", "dilithium3", "falcon-1024", "hybrid_ecdsa_falcon1024"],
+    "require_pq": true,
+    "require_hybrid": true,
+    "pq_allowed": true,
+    "grease": true,
+    "cert_sigalg": "dilithium3",
+    "impl": "BoringSSL"
+  },
+  "network": {
+    "latency_ms": 20,
+    "packet_loss": 0.01,
+    "reordering": true
+  },
+  "mitm": {
+    "enabled": false
+  }
+}

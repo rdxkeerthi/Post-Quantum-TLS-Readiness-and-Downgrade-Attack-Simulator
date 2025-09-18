@@ -29,7 +29,14 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">AI Anomaly Detection Results</h1>
-    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <small class="text-muted">Total anomalies: {{ stats.total_anomalies if stats else anomalies|length }}</small>
+        </div>
+        <div class="text-end">
+            <a href="/tests" class="btn btn-sm btn-outline-primary">Run Tests</a>
+        </div>
+    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
@@ -43,41 +50,51 @@
         {% for anomaly in anomalies %}
         <div class="list-group-item anomaly-entry">
             <div class="row">
-                <div class="col-md-9">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h5 class="mb-0">
-                            Scenario: {{ anomaly.scenario }}
-                            {% if anomaly.attack != "none" %}
-                            <span class="badge bg-warning">Attack: {{ anomaly.attack }}</span>
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="mb-1">Scenario: <a href="/scenario_details/{{ anomaly.id }}" target="_blank">{{ anomaly.scenario }}</a></h5>
+                            <small class="text-muted">{{ anomaly.timestamp }}</small>
+                            {% if anomaly.get('attack') %}
+                                <div class="mt-1"><span class="badge bg-warning">Attack: {{ anomaly.attack }}</span></div>
                             {% endif %}
-                        </h5>
-                        <small class="text-muted">{{ anomaly.timestamp }}</small>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="risk-score risk-{{ 'high' if anomaly.risk_score > 66 else 'medium' if anomaly.risk_score > 33 else 'low' }} mx-auto">
-                        {{ anomaly.risk_score }}
-                    </div>
-                    <div class="mt-2">Risk Score</div>
-                </div>
-            </div>
-            
-            <h6 class="mt-3">Findings:</h6>
-            <div class="row">
-                {% for finding in anomaly.findings %}
-                <div class="col-md-6 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6 class="card-title severity-{{ finding.severity }}">
-                                {{ finding.type|replace('_', ' ')|title }}
-                                <span class="badge bg-secondary float-end">{{ finding.severity }}</span>
-                            </h6>
-                            <p class="card-text">{{ finding.description }}</p>
-                            <p class="card-text"><small class="text-muted">{{ finding.detail }}</small></p>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(anomaly)).then(()=>alert('Copied'))">Copy JSON</button>
                         </div>
                     </div>
+                    <p class="mb-2">{{ anomaly.get('detail','') }}</p>
+                    <h6 class="mt-2">Findings</h6>
+                    <div class="row">
+                        {% for finding in anomaly.get('findings', []) %}
+                        <div class="col-md-6 mb-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title severity-{{ (finding.severity|default('')).upper() }}">
+                                        {{ (finding.type|default('Unknown'))|replace('_',' ')|title }}
+                                        <span class="badge bg-secondary float-end">{{ finding.severity|default('N/A') }}</span>
+                                    </h6>
+                                    <p class="card-text">{{ finding.get('description','') }}</p>
+                                    {% if finding.get('detail') %}
+                                        <p class="card-text"><small class="text-muted">{{ finding.detail }}</small></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
+                <div class="col-md-4 text-center">
+                    {% set score = anomaly.get('risk_score', 0) %}
+                    <div class="risk-score risk-{{ 'high' if score > 66 else 'medium' if score > 33 else 'low' }} mx-auto mb-2">
+                        {{ score }}
+                    </div>
+                    <div class="mb-2">Risk Score</div>
+                    <div class="small text-muted">Status: {{ anomaly.get('status','unknown') }}</div>
+                    <div class="mt-3">
+                        <a class="btn btn-sm btn-primary" href="/report">Open Report</a>
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}

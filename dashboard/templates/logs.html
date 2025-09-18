@@ -1,71 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Handshake Logs</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        pre { background: #f8f9fa; padding: 1rem; border-radius: 0.25rem; }
-        .log-entry { margin-bottom: 2rem; }
-        .success { color: #28a745; }
-        .failure { color: #dc3545; }
-    </style>
-</head>
-<body>
-<div class="container mt-4">
-    <h1 class="mb-4">PQ-TLS Handshake Logs</h1>
+{% extends "base.html" %}
 
-    {% for log in logs %}
-    <div class="bg-white rounded-lg shadow-sm mb-4 p-4 border-l-4 
-                {% if log.status == 'success' %}border-green-500{% else %}border-yellow-500{% endif %}">
-        <div class="flex justify-between items-start">
-            <div>
-                <h3 class="font-semibold text-lg">{{ log.title }}</h3>
-                <p class="text-gray-600 mt-1">{{ log.details }}</p>
-                <div class="mt-2 flex gap-4 text-sm text-gray-500">
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        {{ log.timestamp | format_timestamp }}
-                    </span>
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                        {{ log.protocol }}
-                    </span>
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
-                        </svg>
-                        {{ log.cipher_suite }}
-                    </span>
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-6">System Logs</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for log in logs %}
+    {# use stable id based on log id so collapse state can be preserved across refresh #}
+    <div class="card-ios mb-6" data-log-id="{{ log.id }}">
+            <div class="flex justify-between items-center mb-2">
+                <div>
+                    <h3 class="font-semibold text-lg">{{ log.title if log.title else log.type }}</h3>
+                    <p class="text-gray-500 text-sm">{{ log.details if log.details else log.severity }}</p>
                 </div>
+                <span class="badge-ios status-{{ log.status|lower }}">
+                    {{ log.status|title }}
+                </span>
             </div>
-            <span class="px-3 py-1 rounded-full text-sm font-medium
-                       {% if log.status == 'success' %}bg-green-100 text-green-800
-                       {% else %}bg-yellow-100 text-yellow-800{% endif %}">
-                {{ log.status | title }}
-            </span>
+            <div class="flex gap-4 text-xs text-gray-500 mb-2">
+                <span>{{ log.timestamp|format_timestamp }}</span>
+                <span>{{ log.protocol }}</span>
+                <span>{{ log.cipher_suite }}</span>
+            </div>
+                <div class="flex items-center gap-2 mb-2">
+                    <button class="btn-ios toggle-transcript" type="button" data-bs-toggle="collapse" data-bs-target="#transcript-{{ log.id|replace('.json','') }}">
+                        Show Transcript
+                    </button>
+                </div>
+                <div class="collapse transcript-container" id="transcript-{{ log.id|replace('.json','') }}">
+                    <pre class="transcript-ios"><code>{{ log.transcript if log.transcript else log.content }}</code></pre>
+                </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
-    {% if total_pages > 1 %}
-    <div class="mt-6 flex justify-center">
-        <nav class="flex items-center space-x-2">
-            {% for p in range(1, total_pages + 1) %}
-            <a href="{{ url_for('logs', page=p) }}" 
-               class="px-3 py-1 rounded-md {% if p == current_page %}bg-blue-600 text-white{% else %}text-gray-500 hover:bg-gray-100{% endif %}">
-                {{ p }}
-            </a>
-            {% endfor %}
-        </nav>
-    </div>
-    {% endif %}
 </div>
-
+<style>
+.card-ios {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 2rem 1.5rem;
+    border-left: 6px solid #e5e5ea;
+    transition: box-shadow 0.2s;
+}
+.card-ios:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.badge-ios {
+    padding: 0.4em 1em;
+    border-radius: 999px;
+    font-size: 0.9em;
+    font-weight: 600;
+    background: #f2f2f7;
+    color: #1c1c1e;
+}
+.status-success {
+    background: #eafbe7;
+    color: #34c759;
+}
+.status-error {
+    background: #fde8e8;
+    color: #ff3b30;
+}
+.status-warning {
+    background: #fffbe6;
+    color: #ffcc00;
+}
+.btn-ios {
+    background: #f2f2f7;
+    color: #007aff;
+    border-radius: 8px;
+    padding: 0.4em 1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-ios:hover {
+    background: #e5e5ea;
+}
+.transcript-ios {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.95em;
+    margin-top: 0.5rem;
+}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+// Auto-refresh logs every 30 seconds
+const AUTO_REFRESH_KEY = 'pq_tls_open_transcripts';
+function saveOpenTranscripts() {
+    try {
+        const openIds = Array.from(document.querySelectorAll('.transcript-container.show, .transcript-container.collapse.show'))
+            .map(el => el.id);
+        sessionStorage.setItem(AUTO_REFRESH_KEY, JSON.stringify(openIds));
+    } catch (e) { /* ignore */ }
+}
+
+function restoreOpenTranscripts() {
+    try {
+        const raw = sessionStorage.getItem(AUTO_REFRESH_KEY);
+        if (!raw) return;
+        const openIds = JSON.parse(raw);
+        openIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                const bs = bootstrap.Collapse.getOrCreateInstance(el);
+                bs.show();
+            }
+        });
+    } catch (e) { /* ignore */ }
+}
+
+// Only refresh when tab is visible; increased interval to 60s to avoid jarring UX
+setInterval(() => {
+    if (document.hidden) return; // skip when in background
+    try { saveOpenTranscripts(); } catch (e) {}
+    fetch('/logs')
+        .then(response => response.text())
+        .then(html => {
+            const newHtml = new DOMParser().parseFromString(html, 'text/html').querySelector('.p-4').innerHTML;
+            document.querySelector('.p-4').innerHTML = newHtml;
+            try { restoreOpenTranscripts(); } catch (e) {}
+        }).catch(err => console.warn('Failed to refresh logs', err));
+}, 60000);
+
+// Restore on initial load too
+document.addEventListener('DOMContentLoaded', () => {
+    try { restoreOpenTranscripts(); } catch (e) {}
+});
+</script>
+{% endblock %}
