@@ -319,6 +319,99 @@ sequenceDiagram
 
 ## Graph Visualization & Analytics
 
+---
+
+## Class Diagram (Mermaid)
+```mermaid
+classDiagram
+  class Simulator {
+    +run()
+    +load_config()
+    +init_protocol()
+    +simulate_attack()
+    +detect_anomaly()
+    +log_event()
+    +audit_chain()
+    +generate_report()
+  }
+  class Dashboard {
+    +start()
+    +render_graphs()
+    +update_ui()
+  }
+  class Blockchain {
+    +init_chain()
+    +add_block()
+    +verify_block()
+    +query_chain()
+    +audit_trail()
+  }
+  class AIDetector {
+    +preprocess()
+    +predict()
+    +alert()
+  }
+  Simulator --> Dashboard
+  Simulator --> Blockchain
+  Simulator --> AIDetector
+```
+
+---
+
+## Activity Diagram (Mermaid)
+```mermaid
+flowchart TD
+  Start([Start])
+  LoadConfig([Load Config])
+  InitProtocol([Init Protocol])
+  SimulateAttack([Simulate Attack])
+  DetectAnomaly([Detect Anomaly])
+  LogEvent([Log Event])
+  AuditChain([Audit Chain])
+  GenerateReport([Generate Report])
+  End([End])
+
+  Start --> LoadConfig --> InitProtocol --> SimulateAttack --> DetectAnomaly --> LogEvent --> AuditChain --> GenerateReport --> End
+```
+
+---
+
+## State Diagram (State Machine Diagram) (Mermaid)
+```mermaid
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> ConfigLoaded: load_config
+  ConfigLoaded --> ProtocolInitialized: init_protocol
+  ProtocolInitialized --> AttackSimulated: simulate_attack
+  AttackSimulated --> AnomalyDetected: detect_anomaly
+  AnomalyDetected --> EventLogged: log_event
+  EventLogged --> ChainAudited: audit_chain
+  ChainAudited --> ReportGenerated: generate_report
+  ReportGenerated --> [*]
+```
+
+---
+
+## Component Diagram (Mermaid)
+```mermaid
+flowchart TB
+  Simulator[Simulator]
+  Dashboard[Dashboard]
+  Blockchain[Blockchain]
+  AIDetector[AI Detector]
+  API[API]
+  MITMProxy[MITM Proxy]
+
+  Simulator --> API
+  Simulator --> Dashboard
+  Simulator --> Blockchain
+  Simulator --> AIDetector
+  API --> MITMProxy
+  Dashboard --> API
+  Blockchain --> API
+  AIDetector --> API
+```
+
 ### System Graph Diagram (Mermaid)
 ```mermaid
 graph TD
