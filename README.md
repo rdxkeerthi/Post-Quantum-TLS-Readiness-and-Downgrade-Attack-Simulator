@@ -118,6 +118,80 @@ flowchart TD
 
 ---
 
+## Core Simulator Workflow (Mermaid)
+```mermaid
+flowchart TD
+  Start([Start Simulation])
+  Config[Load Configuration]
+  Scenario[Select Scenario]
+  Init[Initialize Protocol]
+  Attack[Inject Downgrade Attack]
+  Detect[Run AI Anomaly Detection]
+  Log[Log Events]
+  Audit[Blockchain Audit]
+  Report[Generate Report]
+  End([End Simulation])
+
+  Start --> Config --> Scenario --> Init --> Attack --> Detect --> Log --> Audit --> Report --> End
+```
+
+---
+
+## Use Case Diagram (Mermaid)
+```mermaid
+flowchart TD
+    SA([Security Analyst])
+    R([Researcher])
+    Admin([System Admin])
+
+    RunSimulation((Run Simulation))
+    ViewDashboard((View Dashboard))
+    ExportReport((Export Report))
+    ConfigureScenario((Configure Scenario))
+    MonitorAttacks((Monitor Attacks))
+
+    SA --> RunSimulation
+    SA --> ViewDashboard
+    SA --> ExportReport
+    R --> ConfigureScenario
+    R --> RunSimulation
+    Admin --> MonitorAttacks
+    Admin --> ViewDashboard
+```
+
+---
+
+## Sequence Diagram: Attack Detection Flow (Mermaid)
+```mermaid
+sequenceDiagram
+  participant User
+  participant Dashboard
+  participant API
+  participant CoreSimulator
+  participant MITMProxy
+  participant AIDetector
+  participant Blockchain
+  User->>Dashboard: Request Simulation
+  Dashboard->>API: Submit Simulation Params
+  API->>CoreSimulator: Start Simulation
+  CoreSimulator->>MITMProxy: Initiate Attack
+  MITMProxy->>CoreSimulator: Return Traffic
+  CoreSimulator->>AIDetector: Analyze Events
+  AIDetector->>CoreSimulator: Return Anomaly Scores
+  CoreSimulator->>Blockchain: Log Events
+  CoreSimulator->>API: Return Results
+  API->>Dashboard: Display Results
+```
+- `ai-detector`: AI-based anomaly detection
+- `api`: RESTful API service
+- `attacks`: MITM proxy and attack simulation
+- `blockchain`: Audit and integrity verification
+- `core`: Main simulation engine
+- `dashboard`: Real-time monitoring UI
+- `demo_app`: Sample integration application
+
+---
+
 ## Graph Visualization & Analytics
 
 The platform supports advanced graph-based analytics for protocol flows, attack paths, and anomaly detection. Graphs are rendered using integrated dashboard modules and can be exported for further analysis.
