@@ -108,13 +108,138 @@ flowchart TD
 ```
 
 **Modular Components:**
-- `ai-detector`: AI-based anomaly detection
-- `api`: RESTful API service
-- `attacks`: MITM proxy and attack simulation
-- `blockchain`: Audit and integrity verification
-- `core`: Main simulation engine
-- `dashboard`: Real-time monitoring UI
-- `demo_app`: Sample integration application
+
+---
+
+## Dashboard Data Flow (Mermaid)
+```mermaid
+flowchart LR
+  EventStream[Event Stream]
+  DashboardUI[Dashboard UI]
+  Analytics[Analytics Engine]
+  User[User]
+  EventStream --> Analytics --> DashboardUI
+  DashboardUI --> User
+  User --> DashboardUI
+```
+
+---
+
+## AI Detector Workflow (Mermaid)
+```mermaid
+flowchart TD
+  InputData[Protocol Event Data]
+  Preprocess[Preprocessing]
+  Model[ML Model]
+  Score[Anomaly Score]
+  Alert[Alert Generation]
+  InputData --> Preprocess --> Model --> Score --> Alert
+```
+
+---
+
+## Simulator Method Call Graph (Mermaid)
+```mermaid
+flowchart TD
+  Main([main])
+  LoadConfig([load_config])
+  InitProtocol([init_protocol])
+  SimulateAttack([simulate_attack])
+  DetectAnomaly([detect_anomaly])
+  LogEvent([log_event])
+  AuditChain([audit_chain])
+  GenerateReport([generate_report])
+
+  Main --> LoadConfig
+  LoadConfig --> InitProtocol
+  InitProtocol --> SimulateAttack
+  SimulateAttack --> DetectAnomaly
+  DetectAnomaly --> LogEvent
+  LogEvent --> AuditChain
+  AuditChain --> GenerateReport
+```
+
+---
+
+## Dashboard Main Methods (Mermaid)
+```mermaid
+flowchart TD
+  StartDashboard([start_dashboard])
+  LoadConfig([load_dashboard_config])
+  InitUI([init_ui])
+  FetchData([fetch_data])
+  RenderGraphs([render_graphs])
+  HandleEvents([handle_events])
+  UpdateUI([update_ui])
+
+  StartDashboard --> LoadConfig --> InitUI --> FetchData --> RenderGraphs --> HandleEvents --> UpdateUI
+```
+
+---
+
+## Blockchain Main Methods (Mermaid)
+```mermaid
+flowchart TD
+  InitChain([init_chain])
+  AddBlock([add_block])
+  VerifyBlock([verify_block])
+  QueryChain([query_chain])
+  AuditTrail([audit_trail])
+
+  InitChain --> AddBlock --> VerifyBlock --> QueryChain --> AuditTrail
+```
+
+---
+
+## Blockchain Audit Flow (Mermaid)
+```mermaid
+flowchart TD
+  Event[Protocol Event]
+  Hash[Hash Generation]
+  Block[Block Creation]
+  Chain[Blockchain]
+  Verify[Audit Verification]
+  Event --> Hash --> Block --> Chain --> Verify
+```
+
+---
+
+## Project Folder Structure (Mermaid)
+```mermaid
+flowchart TD
+    A[pq-tls]
+    B[pq-tls-blockchain-guard]
+    C[ai-detector]
+    D[api]
+    E[attacks]
+    F[blockchain]
+    G[core]
+    H[dashboard]
+    I[demo_app]
+    J[docs]
+    K[infra]
+    L[tests]
+    M[docker-compose.yml]
+    N[pq-tls-simulator]
+    O[tls-v2]
+    P[data]
+
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+    B --> G
+    B --> H
+    B --> I
+    B --> J
+    B --> K
+    B --> L
+    B --> M
+    A --> N
+    A --> O
+    A --> P
+```
 
 ---
 
@@ -193,6 +318,23 @@ sequenceDiagram
 ---
 
 ## Graph Visualization & Analytics
+
+### System Graph Diagram (Mermaid)
+```mermaid
+graph TD
+  Client((Client))
+  MITMProxy((MITM Proxy))
+  Server((Server))
+  BlockchainGuard((Blockchain Guard))
+  AIDetector((AI Detector))
+  DashboardUI((Dashboard UI))
+
+  Client -- TLS Handshake --> Server
+  Server -- Certificate Exchange --> BlockchainGuard
+  BlockchainGuard -- Audit Log --> DashboardUI
+  MITMProxy -. Downgrade Attempt .-> Client
+  AIDetector -- Anomaly Alert --> DashboardUI
+```
 
 The platform supports advanced graph-based analytics for protocol flows, attack paths, and anomaly detection. Graphs are rendered using integrated dashboard modules and can be exported for further analysis.
 
